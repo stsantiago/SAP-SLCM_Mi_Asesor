@@ -1,0 +1,23 @@
+<!--
+
+    Copyright (C) 2009-2016 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+	<ViewSettingsDialog confirm="onFilterDialogConfirm" id="viewSettingsDialogFilter" resetFilters="onViewSettingsDialogResetFilters">
+		<filterItems>
+			<ViewSettingsFilterItem id="idAcadYrCombo" items="{path: 'oAcadYearrModel>/items'}" key="1" multiSelect="false" text="{i18n>ACADEMIC_YEAR}">
+				<items>
+					<ViewSettingsItem key="AcadYear" text="{oAcadYearrModel>acadYear}" 
+					selected="{path:'oAcadYearrModel>id',formatter: 'ean.edu.asesor.s1.util.Formatter.defaultSelected'}"/>
+				</items>
+			</ViewSettingsFilterItem>
+			<ViewSettingsFilterItem id="idAcadSessnCombo" items="{path: 'oAcadSesionModel>/items'}" key="2" multiSelect="false" text="{i18n>ACADEMIC_SESSION}">
+				<items>
+					<ViewSettingsItem key="AcadSession" text="{oAcadSesionModel>acadSessn}"
+					selected="{path:'oAcadSesionModel>id',formatter: 'ean.edu.asesor.s1.util.Formatter.defaultSelected'}"/>
+				</items>
+			</ViewSettingsFilterItem>
+		</filterItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>

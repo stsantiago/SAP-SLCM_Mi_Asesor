@@ -1,0 +1,58 @@
+<!--
+
+    Copyright (C) 2009-2016 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:layout="sap.ui.layout" xmlns="sap.m">
+	<ResponsivePopover class="sapUiPopupWithPadding" id="transPopUpId" placement="Auto" title="{i18n>TRANS_DTS}">
+		<content>
+			<layout:form.SimpleForm>
+				<Label class="PaddingRight" text="{i18n>RES_ORG}"/>
+				<Text text="{/ResponsibleOrgTxt}"/>
+				<Label class="PaddingRight" text="{i18n>TRANS_CAT}"/>
+				<Text text="{/TransTypeTxt}"/>
+				<Label class="PaddingRight" text="{i18n>ISS_ON}"/>
+				<Text text="{/IssuedOn}"/>
+				<Label class="PaddingRight" text="{i18n>EAR_CRED}"/>
+				<Text text="{parts:[{path:'/EarnedCredits'},{path:'/IntCreditTxt'}], formatter:'.formatter.courseDetail'}"/>
+				<Label class="PaddingRight" text="{i18n>INT_EAR_CRED}"/>
+				<Text text="{parts:[{path:'/InternalCredits'},{path:'/IntCreditTxt'}], formatter:'.formatter.courseDetail'}"/>
+				<Label class="PaddingRight" text="{i18n>QUAL}"/>
+				<Text text="{/Qualification}"/>
+				<Label class="PaddingRight" text="{i18n>DATE}"/>
+				<Text text="{/QualDate}"/>
+			</layout:form.SimpleForm>
+			<html:h5 style="height:1px">
+				<ObjectStatus state="None" text="{i18n>LBL_GRADES}"/>
+			</html:h5>
+			<List growing="true" growingScrollToLoad="true" growingThreshold="20" id="idSubLst" includeItemInSelection="false"
+				items="{path:'oSubModel>/results'}" mode="None" modeAnimationOn="false" type="Inactive">
+				<CustomListItem type="Inactive">
+					<layout:form.SimpleForm>
+						<Label text="{oSubModel>CourseText}"/>
+						<Text text="{path:'oSubModel>Scale',formatter: '.formatter.testResultAppend' }"/>
+						<Label text="{i18n>ACAD_YR_SESS}"/>
+						<Text text="{parts:[{path:'oSubModel>Acadyear'},{path:'oSubModel>AcadSession'}], formatter:'.formatter.appendAcadYearnSess'}"/>
+					</layout:form.SimpleForm>
+				</CustomListItem>
+			</List>
+			<html:h5 style="height:1px">
+				<ObjectStatus text="{i18n>RESULTS}"/>
+			</html:h5>
+			<layout:form.SimpleForm maxContainerCols="2" minWidth="1024">
+				<Label class="PaddingRight" text="{i18n>TOTAL_ACHIV}"/>
+				<Text text="{/TotAchievements}"/>
+				<Label class="PaddingRight" text="{i18n>TOTAL_CRED}"/>
+				<Text text="{parts:[{path:'/TotCredits'},{path:'/IntCreditTxt'}], formatter:'.formatter.courseDetail'}"/>
+				<Label class="PaddingRight" text="{i18n>TOTAL_INT_CRED}"/>
+				<Text text="{parts:[{path:'/TotIntCredits'},{path:'/IntCreditTxt'}], formatter:'.formatter.courseDetail'}"/>
+			</layout:form.SimpleForm>
+			
+			<!-- Extension point to add/delete content -->
+			<core:ExtensionPoint name="extTranscriptPopup"></core:ExtensionPoint>
+		</content>
+		<beginButton>
+			<Button press="onTransDialogClose" text="{i18n>OK}"/>
+		</beginButton>
+	</ResponsivePopover>
+</core:FragmentDefinition>

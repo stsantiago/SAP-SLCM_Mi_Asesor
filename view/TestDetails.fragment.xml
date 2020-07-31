@@ -1,0 +1,47 @@
+<!--
+
+    Copyright (C) 2009-2016 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:layout="sap.ui.layout" xmlns="sap.m">
+	<ResponsivePopover class="sapUiPopupWithPadding" id="testPopUpId" modal="false" placement="Auto" title="{i18n>TST_DTS}"
+		verticalScrolling="true">
+		<content>
+			<html:h5 style="height:1px">
+				<Text state="None" text="{/TestType}"/>
+			</html:h5>
+			<layout:form.SimpleForm>
+				<Label class="PaddingRight" text="{i18n>TST_TYPE}"/>
+				<Text text="{/TestTypeTxt}"/>
+				<Label class="PaddingRight" text="{i18n>TST_DTE}"/>
+				<Text text="{/TestDate}"/>
+				<Label class="PaddingRight" text="{i18n>RES_ISSUED_ON}"/>
+				<Text text="{/IssuedOn}"/>
+				<Label class="PaddingRight" text="{i18n>RES_VALID}"/>
+				<Text text="{/ValidUntil}"/>
+				<Label class="PaddingRight" text="{i18n>ACD_YR}"/>
+				<Text text="{/SessionYear}"/>
+				<Label class="PaddingRight" text="{i18n>ACD_SESSN}"/>
+				<Text text="{/SessionTxt}"/>
+			</layout:form.SimpleForm>
+			<html:h5 style="height:1px">
+				<ObjectStatus state="None" text="{i18n>LBL_GRADES}"/>
+			</html:h5>
+			<List growing="true" growingScrollToLoad="true" growingThreshold="20" id="idSubTestLst" includeItemInSelection="false"
+				items="{path:'oSubTestModel>/results'}" mode="None" modeAnimationOn="false" type="Inactive">
+				<CustomListItem type="Inactive">
+					<layout:form.SimpleForm>
+						<Label text="{oSubTestModel>SubtestTxt}"/>
+						<Text text="{path:'oSubTestModel>Scale',formatter: '.formatter.testResultAppend' }"/>
+					</layout:form.SimpleForm>
+				</CustomListItem>
+			</List>
+			
+			<!-- Extension point to add/delete content -->
+			<core:ExtensionPoint name="extTestPopup"></core:ExtensionPoint>
+		</content>
+		<beginButton>
+			<Button press="onTestDialogClose" text="{i18n>OK}"/>
+		</beginButton>
+	</ResponsivePopover>
+</core:FragmentDefinition>

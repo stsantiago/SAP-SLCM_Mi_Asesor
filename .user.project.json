@@ -1,0 +1,32 @@
+{
+  "run": [
+    {
+      "filePath": "/Component.js",
+      "previewMode": 1,
+      "dataMode": 1,
+      "workspace": "withoutWorkspace",
+      "ui5ActiveVersion": "",
+      "ui5VerSource": null,
+      "isDefaultVersion": 0,
+      "urlParameters": [
+        {
+          "paramName": "",
+          "paramValue": ""
+        }
+      ],
+      "hashParameter": "",
+      "backendSystem": [
+        {
+          "source": "EAN_GED_100",
+          "destinations": "EAN_GED_100_CLONING"
+        }
+      ],
+      "_metadata": {
+        "id": 692164,
+        "runnerId": "fiorirunner",
+        "displayName": "Configuration",
+        "lastRunTimeStamp": 1507905300756
+      }
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+<!--
+
+    Copyright (C) 2009-2016 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:View controllerName="ean.edu.asesor.s1.Main" displayBlock="true" height="100%" xmlns:core="sap.ui.core" xmlns="sap.m">
+	<NavContainer id="fioriContent" showHeader="false"></NavContainer>
+</core:View>

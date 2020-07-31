@@ -1,0 +1,29 @@
+<!--
+
+    Copyright (C) 2009-2016 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:View controllerName="ean.edu.asesor.s1.view.ContactCardView" resourceBundleAlias="i18n"
+	resourceBundleName="ean.edu.asesor.s1.i18n.i18n" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+	<form:SimpleForm id="idContentDetail" maxContainerCols="2">
+		<core:Title text="{i18n>CONTACT_DETAILS}"/>
+		<Label text="{i18n>EMAIL_ID}"/>
+		<Link press="handleEmailPress" text="{EmailId}"/>
+		<Label text="{i18n>WORK}"/>
+		<Link press="handleTelPress" text="{MobileNum}"/>
+		<Label text="{i18n>MOBILE}"/>
+		<Link press="handleTelPress" text="{WorkNum}"/>
+		<!-- Extension point to add/delete content -->
+			<core:ExtensionPoint name="extidContentDetail"></core:ExtensionPoint>
+	</form:SimpleForm>
+	<form:SimpleForm id="idUniversityDetail" maxContainerCols="2">
+		<core:Title text="{i18n>UNIVERSITY}"/>
+		<Label text="{i18n>NAME}"/>
+		<Text text="{OrgUnit}"/>
+		<Label text="{i18n>DEPARTMENT}"/>
+		<Text text="{Department}"/>
+		<!-- Extension point to add/delete content -->
+			<core:ExtensionPoint name="extidUniversityDetail"></core:ExtensionPoint>
+	</form:SimpleForm>
+</core:View>

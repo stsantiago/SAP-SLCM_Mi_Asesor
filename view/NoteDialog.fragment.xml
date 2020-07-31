@@ -1,0 +1,42 @@
+<!--
+
+    Copyright (C) 2009-2016 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns="sap.m">
+	<Dialog afterOpen="handleDialogOpen" id="idNteDialog" title="{i18n>ADD_NOTE}" verticalScrolling="false">
+		<content>
+			<layout:VerticalLayout width="100%">
+				<layout:form.SimpleForm maxContainerCols="1" minWidth="1024">
+					<Label required="true" text="{i18n>SELECT_NOTE_TYPE}"/>
+					<Select change="onNoteChange" id="idNoteType" items="{ path: 'noteTypeModel>/results' }">
+						<core:Item key="{noteTypeModel>Notetype}" text="{noteTypeModel>Sutxt}"/>
+					</Select>
+					<Label id="idAcadYr" text="{i18n>ACD_YR}"/>
+					<Select change="onAcadYrChange" id="idSelectYr" items="{ path:'oAcadYrModel>/results' }">
+						<core:Item key="{oAcadYrModel>AcadYear}" text="{oAcadYrModel>AcadYearText}"/>
+					</Select>
+					<Label id="idAcadSessn" text="{i18n>ACD_SESSN}"/>
+					<Select id="idSelectSessn" items="{ path: 'oAcadSessnModel>/results' }">
+						<core:Item key="{oAcadSessnModel>AcadSession}" text="{oAcadSessnModel>AcadSessionText}"/>
+					</Select>
+					<Label id="idStage" text="{i18n>STAGE}"/>
+					<Select id="idSelectStage" items="{ path: 'oAcadStageModel>/results' }">
+						<core:Item key="{oAcadStageModel>AcadLevel}" text="{oAcadStageModel>AcadLevelText}"/>
+					</Select>
+				</layout:form.SimpleForm>
+			</layout:VerticalLayout>
+			<layout:VerticalLayout width="100%">
+				<layout:form.SimpleForm maxContainerCols="2" minWidth="1024">
+					<TextArea id="idNteTxt" liveChange="handleLiveChange" placeholder="{i18n>ADD_NOTES}" width="100%"/>
+				</layout:form.SimpleForm>
+			</layout:VerticalLayout>
+		</content>
+		<beginButton>
+			<Button enabled="false" press="onNotesDialogSave" text="{i18n>OK}"/>
+		</beginButton>
+		<endButton>
+			<Button press="onNotesDialogClose" text="{i18n>CANCEL}"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

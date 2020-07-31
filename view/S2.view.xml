@@ -1,0 +1,37 @@
+<!--
+
+    Copyright (C) 2009-2016 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:View controllerName="ean.edu.asesor.s1.view.S2" xmlns:core="sap.ui.core" xmlns="sap.m">
+	<Page id="page">
+		<content>
+			<List growing="true" growingScrollToLoad="true" growingThreshold="20" id="list"
+				mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}" select="_handleSelect" updateFinished="onUpdateFinished">
+				<infoToolbar>
+					<Toolbar active="true" id="idFilterBar" visible="true">
+						<Label id="idFilterLabel"/>
+					</Toolbar>
+				</infoToolbar>
+				
+				<items>
+					<ObjectListItem id="idMstrLstItm" intro="{path:'AdvisedDate',formatter: 'ean.edu.asesor.s1.util.Formatter.headerInfoTxt'}"
+						press="_handleItemPress" title="{StudentName}" type="{= ${device>/system/phone} ? 'Active' : 'Inactive'}">
+						<firstStatus>
+							<ObjectStatus state="{path:'HoldStatus',formatter: 'ean.edu.asesor.s1.util.Formatter.statusText'}" text="{HoldstatusText}"/>
+						</firstStatus>
+						<secondStatus>
+							<ObjectStatus text="{StudentStatus}"/>
+						</secondStatus>
+						<attributes>
+							<ObjectAttribute text="{StudentNumber}"/>
+							<ObjectAttribute text="{ProgramOfStudyText}"/>
+						</attributes>
+					</ObjectListItem>
+				</items>
+			</List>
+			<!-- Extension point to add/delete content -->
+			<core:ExtensionPoint name="extMasterList"></core:ExtensionPoint>
+		</content>
+	</Page>
+</core:View>

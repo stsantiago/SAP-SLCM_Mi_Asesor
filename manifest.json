@@ -1,0 +1,93 @@
+{
+    "_version": "1.2.0",
+    "sap.app": {
+        "_version": "1.2.0",
+        "id": "ean.edu.asesor.s1",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "4.0.1"
+        },
+        "title": "{{SHELL_TITLE}}",
+        "ach": "IS-HER-FIO",
+        "dataSources": {
+            "ZSLCM_PIQ_ADVISEE_DETAILS_SRV": {
+                "uri": "/sap/opu/odata/sap/ZSLCM_PIQ_ADVISEE_DETAILS_SRV/",
+                "settings": {
+                    "localUri": "model/metadata.xml"
+                }
+            }
+        },
+        "resources": "resources.json",
+        "crossNavigation": {
+            "inbounds": {
+                "MyAdvisee": {
+                    "semanticObject": "Student",
+                    "action": "displayadv",
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    }
+                }
+            },
+            "outbounds": {
+                "studentDisplay": {
+                    "semanticObject": "Student",
+                    "action": "displayfac",
+                    "parameters": {
+                        "objectId": {},
+                        "progId": {}
+                    }
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "_version": "1.2.0",
+        "technology": "UI5",
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        },
+        "supportedThemes": [
+            "sap_hcb",
+            "sap_bluecrystal"
+        ]
+    },
+    "sap.ui5": {
+        "_version": "1.1.0",
+        "resources": {
+            "js": [],
+            "css": []
+        },
+        "dependencies": {
+            "minUI5Version": "1.40.3",
+            "libs": {
+                "sap.ca.scfld.md": {},
+                "sap.ca.ui": {},
+                "sap.m": {},
+                "sap.me": {},
+                "sap.suite.ui.commons": {},
+                "sap.suite.ui.microchart": {},
+                "sap.ui.layout": {}
+            },
+            "components": {}
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        }
+    },
+    "sap.platform.abap": {
+        "_version": "1.1.0",
+        "uri": "/sap/bc/ui5_ui5/sap/zslcm_asesor"
+    },
+    "sap.fiori": {
+        "_version": "1.1.0",
+        "registrationIds": [
+            "F1657"
+        ],
+        "archeType": "transactional"
+    }
+}

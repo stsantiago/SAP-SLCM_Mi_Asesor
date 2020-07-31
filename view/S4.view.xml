@@ -1,0 +1,64 @@
+<!--
+
+    Copyright (C) 2009-2016 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:View controllerName="ean.edu.asesor.s1.view.S4" xmlns:chart="sap.suite.ui.microchart" xmlns:core="sap.ui.core"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+	<Page id="idPrgmDetail" navButtonPress="onNavBtnPrss" showNavButton="true" title="{i18n>DETAIL_TITLE}">
+		<content>
+			<ObjectHeader backgroundDesign="Transparent" fullScreenOptimized="false" id="idObjHeader" responsive="true" title="{/CourseTxt}"
+				titleActive="false">
+				<attributes>
+					<ObjectAttribute
+						text="{ parts : [ {path: '/EarnedCredits'}, {path: '/CreditsUnitTxt'} ], formatter: 'ean.edu.asesor.s1.util.Formatter.creditText' }"/>
+					<ObjectAttribute
+						text="{ parts : [ {path: '/AcadYear'}, {path: '/AcadSessionTxt'} ], formatter: 'ean.edu.asesor.s1.util.Formatter.courseDetail' }"/>
+				</attributes>
+				<statuses>
+					<ObjectStatus state="{path:'/Status',formatter: 'ean.edu.asesor.s1.util.Formatter.statusState'}" text="{/Result}"/>
+					<ObjectStatus state="{path:'/Status',formatter: 'ean.edu.asesor.s1.util.Formatter.statusState'}" text="{/StatusTxt}"/>
+				</statuses>
+			</ObjectHeader>
+			<Table id="idPrgmDtl" inset="true" items="{path:'oAppModel>/results'}">
+				<headerToolbar>
+					<Toolbar>
+						<Title id="idApptitle" level="H2" text="{i18n>APPRAISALS}"/>
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+					<Column demandPopin="true" minScreenWidth="Tablet">
+						<Text text="{i18n>APPRAISAL_TYPE}"/>
+					</Column>
+					<Column demandPopin="true" hAlign="Center" minScreenWidth="Tablet" width="20%">
+						<Text text="{i18n>WEIGHING}"/>
+					</Column>
+					<Column demandPopin="true" hAlign="Right" minScreenWidth="Tablet" width="20%">
+						<Text text="{i18n>RESULTS}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<l:VerticalLayout>
+								<Label design="Bold" text="{oAppModel>ApprTypeTxt}"/>
+								<Text text="{oAppModel>ParentTxt}"
+									visible="{path:'oAppModel>ParentTxt',formatter: 'ean.edu.asesor.s1.util.Formatter.diaplayParentTxt'}"/>
+							</l:VerticalLayout>
+							<chart:BulletMicroChart maxValue="100" minValue="0" mode="Actual" scale="%" showActualValue="true" size="S">
+								<chart:actual>
+									<chart:BulletMicroChartData color="Good"
+										value="{path:'oAppModel>Weightage',formatter: 'ean.edu.asesor.s1.util.Formatter.chartPercentage'}"/>
+								</chart:actual>
+							</chart:BulletMicroChart>
+							<Text text="{oAppModel>Result}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			
+			<!-- Extension point to add/delete content -->
+			<core:ExtensionPoint name="extAppraisal"></core:ExtensionPoint>
+		</content>
+	</Page>
+</core:View>

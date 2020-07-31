@@ -1,0 +1,243 @@
+<!--
+
+    Copyright (C) 2009-2016 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:View controllerName="ean.edu.asesor.s1.view.S3" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns="sap.m">
+	<Page>
+		<content>
+			<ObjectHeader backgroundDesign="Translucent" fullScreenOptimized="true" icon="{/PhotoURI}" id="objectHeader" intro="{/StudentNumber}"
+				number="{/HoldStatusTxt}" numberState="{path:'/HoldState',formatter: 'ean.edu.asesor.s1.util.Formatter.statusText'}"
+				responsive="true" title="{/StudentName}" titleActive="true" titlePress="handleTitlePress">
+				<attributes>
+					<ObjectAttribute active="true" press="onEmailPress" text="{/EmailID}"/>
+					<ObjectAttribute text="{/StudentStatusTxt}" title="{i18n>STATUS}"/>
+				</attributes>
+				<statuses>
+					<ObjectStatus id="idObjAtt1"
+						text="{ parts : [ {path: '/ProgramTxt'}, {path: '/AcadYr'}, {path: '/AcadSessTxt'} ], formatter: 'ean.edu.asesor.s1.util.Formatter.programText' }"/>
+					<ObjectStatus text="{path:'/AdvNoteDate',formatter: 'ean.edu.asesor.s1.util.Formatter.headerInfoTxt'}"/>
+				</statuses>
+				<headerContainer>
+					<IconTabBar class="sapUiResponsiveContentPadding" id="iconTabBar" select="onTabSelect">
+						<items>
+							<IconTabFilter design="Horizontal" icon="sap-icon://study-leave" id="idAcademicTabFilter" key="academicTab" text="{i18n>ACADEMICS}">
+								<content>
+									<l:Grid defaultSpan="L12 M12 S12" width="auto">
+										<l:content>
+											<Table id="idAcademicTble" inset="false" items="{path:'oCrseModel>/results'}" showSeparators="All">
+												<headerToolbar>
+													<Toolbar id="idToolBar" visible="false">
+														<Title id="idResult" level="H2"/>
+														<ToolbarSpacer></ToolbarSpacer>
+														<!--<ComboBox id="idAcadYrCombo" items="{path: 'oAcadYearrModel>/items'}" selectedKey="00" 
+														selectionChange="onAcadYearChange">
+															<core:Item key="{oAcadYearrModel>id}" text="{oAcadYearrModel>acadYear}"/>
+														</ComboBox>
+														<ComboBox id="idAcadSessnCombo" items="{path: 'oAcadSesionModel>/items'}" selectedKey="00" 
+														selectionChange="onAcadSessnChange">
+															<core:Item key="{oAcadSesionModel>id}" text="{oAcadSesionModel>acadSessn}"/>
+														</ComboBox>-->
+														<Button icon="sap-icon://filter" press="onAcadFilterPress"></Button>
+													</Toolbar>
+												</headerToolbar>
+												<columns>
+													<Column>
+														<Text text="{i18n>COURSE}"/>
+													</Column>
+													<Column demandPopin="true" hAlign="Right" minScreenWidth="Tablet">
+														<Text text="{i18n>ATTEMPT}"/>
+													</Column>
+													<Column demandPopin="true" hAlign="Right">
+														<Text text="{i18n>RESULT}"/>
+													</Column>
+													<Column demandPopin="true" hAlign="Center">
+														<Text text="{i18n>STATUS}"/>
+													</Column>
+												</columns>
+												<items>
+													<ColumnListItem id="idAcademicTbleItm" press="onItemPress" type="Navigation">
+														<cells>
+															<l:VerticalLayout>
+																<Text text="{oCrseModel>CourseTxt}"></Text>
+																<Text id="idCreditTxt"
+																	text="{ parts : [ {path: 'oCrseModel>EarnedCredits'}, {path: 'oCrseModel>CreditsUnitTxt'} ], formatter: 'ean.edu.asesor.s1.util.Formatter.creditText' }"/>
+															</l:VerticalLayout>
+															<Text text="{oCrseModel>Attempt}"/>
+															<ObjectStatus state="{path:'oCrseModel>Status',formatter: 'ean.edu.asesor.s1.util.Formatter.statusState'}"
+																text="{oCrseModel>Result}"></ObjectStatus>
+															<ObjectStatus state="{path:'oCrseModel>Status',formatter: 'ean.edu.asesor.s1.util.Formatter.statusState'}"
+																text="{oCrseModel>StatusTxt}"></ObjectStatus>
+														</cells>
+													</ColumnListItem>
+												</items>
+											</Table>
+											<Table id="oPrevResId" inset="false" items="{path:'oResModel>/results'}" showSeparators="All">
+												<headerToolbar>
+													<Toolbar>
+														<Title level="H2" text="{i18n>PREVIOUS_RESULTS}"/>
+													</Toolbar>
+												</headerToolbar>
+												<columns>
+													<Column demandPopin="true" minScreenWidth="Tablet">
+														<header>
+															<Label text="{i18n>TEST_TRANSCRIPTS}"/>
+														</header>
+													</Column>
+													<!--<Column demandPopin="true" hAlign="Right" minScreenWidth="Tablet">-->
+													<!--	<header>-->
+													<!--		<Label text="{i18n>RESULT}"/>-->
+													<!--	</header>-->
+													<!--</Column>-->
+													<!--<Column demandPopin="true" hAlign="Right" minScreenWidth="Tablet">-->
+													<!--	<header>-->
+													<!--		<Label text="{i18n>RANK}"/>-->
+													<!--	</header>-->
+													<!--</Column>-->
+													<Column demandPopin="true" hAlign="Center" minScreenWidth="Tablet">
+														<header>
+															<Label text="{i18n>STATUS}"/>
+														</header>
+													</Column>
+												</columns>
+												<ColumnListItem >
+													<cells>
+														<l:VerticalLayout>
+															<Link press="popUpPress" text="{oResModel>Type}"></Link>
+															<Text text="{oResModel>TypeTxt}"/>
+														</l:VerticalLayout>
+														<!--<l:VerticalLayout>-->
+														<!--	<Text text="{oResModel>AcadResult}"></Text>-->
+														<!--	<Text text="{oResModel>Scale}"></Text>-->
+														<!--</l:VerticalLayout>-->
+														<!--<Text text="{oResModel>Rank}"></Text>-->
+														<Text text="{oResModel>Status}"></Text>
+													</cells>
+												</ColumnListItem>
+											</Table>
+											
+											<!-- Extension point to add/delete content -->
+											<core:ExtensionPoint name="extAcadInfo"></core:ExtensionPoint>
+										</l:content>
+									</l:Grid>
+								</content>
+							</IconTabFilter>
+							<IconTabFilter design="Horizontal" icon="sap-icon://notes" id="idNotesTabFilter" key="advisrTab" text="{i18n>ADVISOR_NOTES}">
+								<content>
+									<List growing="true" growingScrollToLoad="true" growingThreshold="10" id="idFeedLst" items="{path:'oAdvModel>/results'}"
+										showSeparators="All">
+										<FeedListItem icon="{oAdvModel>PhotoUri}" iconActive="false" id="idFeedLstItm" info="{oAdvModel>NoteTypeText}"
+											sender="{oAdvModel>ChangedBy}" senderActive="true" senderPress="onSenderPress" showIcon="true" text="{oAdvModel>Notes}"
+											timestamp="{oAdvModel>ChangedOn}"/>
+										<headerToolbar>
+											<Toolbar>
+												<ComboBox id="idComboBx" items="{path: 'oNoteTypeModel>/items'}" selectedKey="0000" selectionChange="handleNoteDialogConfirm">
+													<core:Item key="{oNoteTypeModel>NoteType}" text="{oNoteTypeModel>NoteText}"/>
+												</ComboBox>
+												<ToolbarSpacer/>
+												<Button icon="sap-icon://add" press="onAddNteBtnPrss" type="Transparent"/>
+											</Toolbar>
+										</headerToolbar>
+									</List>
+									<!-- Extension point to add/delete content -->
+									<core:ExtensionPoint name="extAdvNotes"></core:ExtensionPoint>
+								</content>
+							</IconTabFilter>
+							<IconTabFilter design="Horizontal" icon="sap-icon://quality-issue" iconColor="Critical" id="idHoldsTabFilter" key="holdsTab"
+								text="{i18n>HOLDS}">
+								<l:VerticalLayout class="sapUiContentPadding">
+									<l:content>
+										<ComboBox id="idHldComboBx" items="{path: 'holdModel>/results'}" selectedKey="01" selectionChange="handleHoldDialogConfirm">
+											<core:Item key="{holdModel>HoldOtypeKey}" text="{holdModel>HoldOtypeText}"/>
+										</ComboBox>
+									</l:content>
+								</l:VerticalLayout>
+								<content>
+									<Table growing="true" growingScrollToLoad="true" growingThreshold="10" id="idHoldsTble" inset="false" items="{path:'oHoldModel>/results'}"
+										showSeparators="All">
+										<columns>
+											<Column demandPopin="true" minScreenWidth="Tablet">
+												<Text text="{i18n>HOLD}"/>
+											</Column>
+											<Column demandPopin="true" minScreenWidth="Tablet">
+												<Text text="{i18n>HOLD_TYPE}"/>
+											</Column>
+											<Column demandPopin="true" minScreenWidth="Tablet">
+												<Text text="{i18n>NOTES}"/>
+											</Column>
+											<Column demandPopin="true" hAlign="Right" minScreenWidth="Tablet" width="25%">
+												<Text text="{i18n>VALIDITY}"/>
+											</Column>
+											<Column demandPopin="true" hAlign="Center" minScreenWidth="Tablet">
+												<Text text="{i18n>STATUS}"/>
+											</Column>
+										</columns>
+										<items>
+											<ColumnListItem id="idHoldsTbleItm">
+												<cells>
+													<Text text="{oHoldModel>HoldTypet}"/>
+													<Text text="{oHoldModel>HoldObjTypet}"/>
+													<Text text="{oHoldModel>Notes}"/>
+													<l:VerticalLayout>
+														<!--<Text text="{path:'oHoldModel>StartDate',formatter: 'ean.edu.asesor.s1.util.Formatter.startDate'}"/>
+                                              <Text text="{oHoldModel>EndDate}"/>-->
+														<Text
+															text="{ parts : [ {path: 'oHoldModel>StartDate'}, {path: 'oHoldModel>EndDate'} ], formatter: 'ean.edu.asesor.s1.util.Formatter.startDate' }"></Text>
+													</l:VerticalLayout>
+													<ObjectStatus state="{path:'oHoldModel>Status',formatter: 'ean.edu.asesor.s1.util.Formatter.statusText'}"
+														text="{oHoldModel>StatusText}"/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+									<!-- Extension point to add/delete content -->
+									<core:ExtensionPoint name="extHolds"></core:ExtensionPoint>
+								</content>
+							</IconTabFilter>
+							<IconTabFilter design="Horizontal" icon="sap-icon://activity-individual" id="idActivityTabFilter" key="activityTab" text="{i18n>ACTIVITIES}">
+								<l:VerticalLayout class="sapUiContentPadding">
+									<l:content>
+										<ComboBox id="idActvtyComboBx" items="{path: 'activityModel>/results'}" selectedKey="0000" selectionChange="handleActivityDialogConfirm">
+											<core:Item key="{activityModel>ActivityListType}" text="{activityModel>ActivityListDesc}"/>
+										</ComboBox>
+									</l:content>
+								</l:VerticalLayout>
+								<content>
+									<Table growing="true" growingScrollToLoad="true" growingThreshold="10" id="idActivityTble" inset="false"
+										 showSeparators="All">
+										<columns>
+											<Column demandPopin="true" minScreenWidth="Tablet">
+												<Text text="{i18n>ACTIVITY_TYPE}"/>
+											</Column>
+											<Column demandPopin="true" minScreenWidth="Tablet">
+												<Text text="{i18n>DESCRIPTION}"/>
+											</Column>
+											<Column demandPopin="true" minScreenWidth="Tablet">
+												<Text text="{i18n>CREATED_BY}"/>
+											</Column>
+											<Column demandPopin="true" hAlign="Right" minScreenWidth="Tablet">
+												<Text text="{i18n>CREATED_ON}"/>
+											</Column>
+										</columns>
+										<items>
+											<ColumnListItem id="idActivityTbleItm">
+												<cells>
+													<Text text="{ActivityType}"></Text>
+													<Text text="{ActivityTypeDesc}"/>
+													<Text text="{CreatedBy}"></Text>
+													<Text text="{CreatedOn}"/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+									<!-- Extension point to add/delete content -->
+									<core:ExtensionPoint name="extActivities"></core:ExtensionPoint>
+								</content>
+							</IconTabFilter>
+						</items>
+					</IconTabBar>
+				</headerContainer>
+			</ObjectHeader>
+		</content>
+	</Page>
+</core:View>

@@ -1,0 +1,37 @@
+<!--
+
+    Copyright (C) 2009-2016 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+	<ViewSettingsDialog confirm="onConfirmViewSettingsDialog" id="viewSettingsDialog" resetFilters="onViewSettingsDialogResetFilters">
+		<sortItems>
+			<ViewSettingsItem key="AdvisedDate" selected="true" text="{i18n>LST_ADV_NTE}"/>
+			<ViewSettingsItem key="StudentName" text="{i18n>STUDENT_NAME}"/>
+			<ViewSettingsItem key="StudentNumber" text="{i18n>STUDENT_NUMBER}"/>
+		</sortItems>
+		<groupItems id="groupId">
+			<ViewSettingsItem key="ProgramOfStudyId" selected="true" text="{i18n>PRGM_OF_STDY}"/>
+			<ViewSettingsItem key="HoldStatus" text="{i18n>HOLD_STATUS}"/>
+		</groupItems>
+		<filterItems>
+			<ViewSettingsFilterItem items="{path:'/ProgramOfStudySet'}" key="1" multiSelect="false" text="{i18n>PRGM_OF_STDY}">
+				<items>
+					<ViewSettingsItem key="ProgramOfStudyId" text="{ProgramTxt}"/>
+				</items>
+			</ViewSettingsFilterItem>
+			<ViewSettingsFilterItem items="{path:'/AdviseeStatusSet'}" key="2" multiSelect="false" text="{i18n>STUDENT_STATUS}">
+				<items>
+					<ViewSettingsItem key="StudentStatus"
+						selected="{path:'StudentStatusId',formatter: 'ean.edu.asesor.s1.util.Formatter.handleSelected'}"
+						text="{StudentStatus}"/>
+				</items>
+			</ViewSettingsFilterItem>
+			<ViewSettingsFilterItem items="{path:'/HoldStatusSet'}" key="3" multiSelect="false" text="{i18n>HOLD_STATUS}">
+				<items>
+					<ViewSettingsItem key="HoldStatus" text="{HoldStatustext}"/>
+				</items>
+			</ViewSettingsFilterItem>
+		</filterItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>
